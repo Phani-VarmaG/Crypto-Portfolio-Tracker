@@ -1,7 +1,9 @@
+# filepath: d:\WebDev\crypto-portfolio-tracker\docker-compose.yml
 version: '3.8'
 
 services:
   backend:
+    # Build the backend service from the local Dockerfile.
     build: ./backend
     ports:
       - "5000:5000"
@@ -12,6 +14,7 @@ services:
       - redis
 
   frontend:
+    # Build the frontend service from the local Dockerfile.
     build: ./frontend
     ports:
       - "3000:3000"
@@ -21,16 +24,20 @@ services:
       - backend
 
   db:
+    # Use the official PostgreSQL 13 image.
     image: postgres:13
     env_file:
       - .env
+    # Define a named volume for persisting database data.
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   redis:
+    # Use the official Redis image.
     image: redis:alpine
     ports:
       - "6379:6379"
 
+# Define volumes used by docker-compose.
 volumes:
   postgres_data:

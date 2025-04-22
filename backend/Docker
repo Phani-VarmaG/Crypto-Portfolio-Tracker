@@ -1,11 +1,17 @@
+# Use the official Python 3.9 slim image.
 FROM python:3.9-slim
 
+# Set working directory inside the container.
 WORKDIR /app
 
+# Copy the requirements file and install Python dependencies.
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the backend application code to the container.
 COPY . .
 
+# Ensure the boot script has execution permissions.
 RUN chmod +x ./boot.sh
+# Set the boot script as the entry point.
 ENTRYPOINT ["./boot.sh"]
